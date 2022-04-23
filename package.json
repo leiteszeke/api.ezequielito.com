@@ -11,7 +11,8 @@
     "test": "jest --verbose --coverage",
     "test-ci": "yarn tsc && yarn test",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "build": "yarn tsc"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
