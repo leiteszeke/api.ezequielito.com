@@ -12,7 +12,8 @@
     "test-ci": "yarn tsc && yarn test",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "deploy": "git push heroku main"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
