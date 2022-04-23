@@ -1,0 +1,51 @@
+type TimeTracking {
+  timeId: String!
+  duration: Int!
+  desc: String
+  userId: String!,
+  taskId: String!,
+  date: Int!
+}
+
+type Task {
+  _id: String!
+
+  id: String!
+  projectId: String!
+  listId: String!
+  name: String!
+  desc: String
+  status: String!
+  priority: String
+  storypoints: Int
+  type: String!
+
+  updatedAt: Int!
+  createdAt: Int!
+  reference: String!
+
+  times: [TimeTracking!]
+  totalTime: Int
+}
+
+input TimeInput {
+  projectId: String!
+  taskId: String!
+  time: Int!
+}
+
+input TaskInput {
+  projectId: String!
+  name: String!
+  description: String
+}
+
+type Query {
+  tasks: [Task]
+  task(id: String!): Task
+}
+
+type Mutation {
+  addTime(input: TimeInput!): Task
+  createTask(input: TaskInput!): Task
+}

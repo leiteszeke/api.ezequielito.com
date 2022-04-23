@@ -18,7 +18,3 @@ type Query {
   projects: [Project]
   project(id: String!): Project
 }
-
-type Mutation {
-  createProject(name: String!): Project!
-}

@@ -1,19 +1,18 @@
 import pino, { LogFn } from 'pino';
 
-let pinoConfig = {};
-
-if (process.env.NODE_ENV === 'local') {
-  pinoConfig = {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        levelFirst: true,
-        translateTime: 'yyyy-dd-mm, h:MM:ss TT',
-      },
-    },
-  };
-}
+export const pinoConfig =
+  process.env.NODE_ENV === 'local'
+    ? {
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            colorize: true,
+            levelFirst: true,
+            translateTime: 'yyyy-dd-mm, h:MM:ss TT',
+          },
+        },
+      }
+    : {};
 
 const pinoLogger = pino(pinoConfig);
 

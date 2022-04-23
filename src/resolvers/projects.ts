@@ -15,5 +15,4 @@ export const resolver = {
       return project;
     },
   },
-  Mutation: {},
 };

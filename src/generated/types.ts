@@ -14,12 +14,18 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createProject: Project;
+  addTime?: Maybe<Task>;
+  createTask?: Maybe<Task>;
 };
 
 
-export type MutationCreateProjectArgs = {
-  name: Scalars['String'];
+export type MutationAddTimeArgs = {
+  input: TimeInput;
+};
+
+
+export type MutationCreateTaskArgs = {
+  input: TaskInput;
 };
 
 export type Project = {
@@ -42,9 +48,57 @@ export type Query = {
   __typename?: 'Query';
   project?: Maybe<Project>;
   projects?: Maybe<Array<Maybe<Project>>>;
+  task?: Maybe<Task>;
+  tasks?: Maybe<Array<Maybe<Task>>>;
 };
 
 
 export type QueryProjectArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryTaskArgs = {
+  id: Scalars['String'];
+};
+
+export type Task = {
+  __typename?: 'Task';
+  _id: Scalars['String'];
+  createdAt: Scalars['Int'];
+  desc?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  listId: Scalars['String'];
+  name: Scalars['String'];
+  priority?: Maybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  reference: Scalars['String'];
+  status: Scalars['String'];
+  storypoints?: Maybe<Scalars['Int']>;
+  times?: Maybe<Array<TimeTracking>>;
+  totalTime?: Maybe<Scalars['Int']>;
+  type: Scalars['String'];
+  updatedAt: Scalars['Int'];
+};
+
+export type TaskInput = {
+  description?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+  projectId: Scalars['String'];
+};
+
+export type TimeInput = {
+  projectId: Scalars['String'];
+  taskId: Scalars['String'];
+  time: Scalars['Int'];
+};
+
+export type TimeTracking = {
+  __typename?: 'TimeTracking';
+  date: Scalars['Int'];
+  desc?: Maybe<Scalars['String']>;
+  duration: Scalars['Int'];
+  taskId: Scalars['String'];
+  timeId: Scalars['String'];
+  userId: Scalars['String'];
 };

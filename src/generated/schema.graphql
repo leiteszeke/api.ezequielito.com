@@ -1,5 +1,6 @@
 type Mutation {
-  createProject(name: String!): Project!
+  addTime(input: TimeInput!): Task
+  createTask(input: TaskInput!): Task
 }
 
 type Project {
@@ -20,4 +21,45 @@ type Project {
 type Query {
   project(id: String!): Project
   projects: [Project]
+  task(id: String!): Task
+  tasks: [Task]
+}
+
+type Task {
+  _id: String!
+  createdAt: Int!
+  desc: String
+  id: String!
+  listId: String!
+  name: String!
+  priority: String
+  projectId: String!
+  reference: String!
+  status: String!
+  storypoints: Int
+  times: [TimeTracking!]
+  totalTime: Int
+  type: String!
+  updatedAt: Int!
+}
+
+input TaskInput {
+  description: String
+  name: String!
+  projectId: String!
+}
+
+input TimeInput {
+  projectId: String!
+  taskId: String!
+  time: Int!
+}
+
+type TimeTracking {
+  date: Int!
+  desc: String
+  duration: Int!
+  taskId: String!
+  timeId: String!
+  userId: String!
 }
