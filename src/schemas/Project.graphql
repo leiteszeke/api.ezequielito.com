@@ -1,0 +1,24 @@
+type Project {
+  _id: String!
+
+  id: String!
+  name: String!
+  desc: String
+  type: String
+  icon: String
+  color: String
+  key: String!
+  date: Int!
+  numberOfTasks: Int!
+  completedTasks: Int!
+  timeTracking: [Int!]
+}
+
+type Query {
+  projects: [Project]
+  project(id: String!): Project
+}
+
+type Mutation {
+  createProject(name: String!): Project!
+}
