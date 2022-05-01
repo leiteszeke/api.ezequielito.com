@@ -31,23 +31,22 @@ export type MutationCreateTaskArgs = {
 export type Project = {
   __typename?: 'Project';
   _id: Scalars['String'];
-  color?: Maybe<Scalars['String']>;
   completedTasks: Scalars['Int'];
   date: Scalars['Int'];
-  desc?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   key: Scalars['String'];
   name: Scalars['String'];
   numberOfTasks: Scalars['Int'];
+  sprints?: Maybe<Array<Maybe<Sprint>>>;
   timeTracking?: Maybe<Array<Scalars['Int']>>;
-  type?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
   __typename?: 'Query';
   project?: Maybe<Project>;
   projects?: Maybe<Array<Maybe<Project>>>;
+  sprint?: Maybe<Sprint>;
+  sprints?: Maybe<Array<Maybe<Sprint>>>;
   task?: Maybe<Task>;
   tasks?: Maybe<Array<Maybe<Task>>>;
 };
@@ -58,8 +57,35 @@ export type QueryProjectArgs = {
 };
 
 
+export type QuerySprintArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QuerySprintsArgs = {
+  filters?: InputMaybe<SprintInput>;
+};
+
+
 export type QueryTaskArgs = {
   id: Scalars['String'];
+};
+
+export type Sprint = {
+  __typename?: 'Sprint';
+  _id: Scalars['String'];
+  dateFrom?: Maybe<Scalars['String']>;
+  dateTo?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  key: Scalars['String'];
+  name: Scalars['String'];
+  project?: Maybe<Project>;
+  status: Scalars['String'];
+};
+
+export type SprintInput = {
+  search?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type Task = {

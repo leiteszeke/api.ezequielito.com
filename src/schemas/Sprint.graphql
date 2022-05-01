@@ -1,0 +1,23 @@
+type Sprint {
+  _id: String!
+
+  id: String!
+  key: String!
+  name: String!
+  dateFrom: String,
+  dateTo: String,
+  status: String!
+
+  project: Project
+  tasks: [Task!]
+}
+
+input SprintInput {
+  status: [String!]
+  search: String
+}
+
+type Query {
+  sprints(filters: SprintInput): [Sprint]
+  sprint(id: String!): Sprint
+}

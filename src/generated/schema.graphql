@@ -5,24 +5,39 @@ type Mutation {
 
 type Project {
   _id: String!
-  color: String
   completedTasks: Int!
   date: Int!
-  desc: String
-  icon: String
   id: String!
   key: String!
   name: String!
   numberOfTasks: Int!
+  sprints: [Sprint]
   timeTracking: [Int!]
-  type: String
 }
 
 type Query {
   project(id: String!): Project
   projects: [Project]
+  sprint(id: String!): Sprint
+  sprints(filters: SprintInput): [Sprint]
   task(id: String!): Task
   tasks: [Task]
+}
+
+type Sprint {
+  _id: String!
+  dateFrom: String
+  dateTo: String
+  id: String!
+  key: String!
+  name: String!
+  project: Project
+  status: String!
+}
+
+input SprintInput {
+  search: String
+  status: [String!]
 }
 
 type Task {

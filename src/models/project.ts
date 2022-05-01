@@ -1,16 +1,31 @@
 import { Project } from '../generated/types';
 import { HoldedApi } from '../helpers/request';
+import { BackendProject } from '../types';
+import { mapSprint } from './sprint';
+
+const mapProject = (input: BackendProject) => {
+  const { lists, ...project } = input;
+
+  return {
+    ...project,
+    sprints: lists?.map((sprint) => mapSprint(sprint)),
+  };
+};
 
 const all = async () => {
-  const { data: response } = await HoldedApi.get('projects/v1/projects');
+  const { data: response } = await HoldedApi.get<BackendProject[]>(
+    'projects/v1/projects'
+  );
 
-  return response;
+  return response.map(mapProject);
 };
 
 const find = async (id: Project['id']) => {
-  const { data: response } = await HoldedApi.get(`projects/v1/projects/${id}`);
+  const { data: response } = await HoldedApi.get<BackendProject>(
+    `projects/v1/projects/${id}`
+  );
 
-  return response;
+  return mapProject(response);
 };
 
 export default {

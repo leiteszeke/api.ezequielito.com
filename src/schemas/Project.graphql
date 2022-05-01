@@ -3,15 +3,13 @@ type Project {
 
   id: String!
   name: String!
-  desc: String
-  type: String
-  icon: String
-  color: String
   key: String!
   date: Int!
+
   numberOfTasks: Int!
   completedTasks: Int!
   timeTracking: [Int!]
+  sprints: [Sprint]
 }
 
 type Query {
