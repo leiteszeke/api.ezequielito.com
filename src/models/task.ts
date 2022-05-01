@@ -1,10 +1,24 @@
-import { Task } from '../generated/types';
+import { QueryTasksArgs, Task } from '../generated/types';
 import { HoldedApi } from '../helpers/request';
 
-const all = async (): Promise<Task[]> => {
-  const { data: response } = await HoldedApi.get('projects/v1/tasks');
+const all = async (filters: QueryTasksArgs['filters']): Promise<Task[]> => {
+  const { data: response } = await HoldedApi.get<Task[]>('projects/v1/tasks');
 
-  return response;
+  let tasks = response;
+
+  if (filters?.status && filters.status.length > 0) {
+    tasks = tasks.filter((task) => {
+      return filters.status?.includes(task.status);
+    });
+  }
+
+  if (filters?.search && filters.search !== '') {
+    tasks = tasks.filter((task) =>
+      task.name.toLowerCase().includes(filters.search?.toLowerCase() ?? '')
+    );
+  }
+
+  return tasks;
 };
 
 const find = async (id: Task['id']): Promise<Task> => {

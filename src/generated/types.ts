@@ -71,6 +71,11 @@ export type QueryTaskArgs = {
   id: Scalars['String'];
 };
 
+
+export type QueryTasksArgs = {
+  filters?: InputMaybe<TasksInput>;
+};
+
 export type Sprint = {
   __typename?: 'Sprint';
   _id: Scalars['String'];
@@ -81,6 +86,7 @@ export type Sprint = {
   name: Scalars['String'];
   project?: Maybe<Project>;
   status: Scalars['String'];
+  tasks?: Maybe<Array<Task>>;
 };
 
 export type SprintInput = {
@@ -97,6 +103,7 @@ export type Task = {
   listId: Scalars['String'];
   name: Scalars['String'];
   priority?: Maybe<Scalars['String']>;
+  project: Project;
   projectId: Scalars['String'];
   reference: Scalars['String'];
   status: Scalars['String'];
@@ -111,6 +118,11 @@ export type TaskInput = {
   description?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   projectId: Scalars['String'];
+};
+
+export type TasksInput = {
+  search?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type TimeInput = {

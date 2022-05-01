@@ -26,6 +26,7 @@ type Task {
 
   times: [TimeTracking!]
   totalTime: Int
+  project: Project!
 }
 
 input TimeInput {
@@ -40,8 +41,13 @@ input TaskInput {
   description: String
 }
 
+input TasksInput {
+  status: [String!]
+  search: String
+}
+
 type Query {
-  tasks: [Task]
+  tasks(filters: TasksInput): [Task]
   task(id: String!): Task
 }
 

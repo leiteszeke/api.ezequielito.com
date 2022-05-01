@@ -3,7 +3,7 @@ import { HoldedApi } from '../helpers/request';
 import { BackendProject } from '../types';
 import { mapSprint } from './sprint';
 
-const mapProject = (input: BackendProject) => {
+export const mapProject = (input: BackendProject) => {
   const { lists, ...project } = input;
 
   return {

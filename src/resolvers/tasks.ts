@@ -2,15 +2,20 @@ import {
   MutationAddTimeArgs,
   MutationCreateTaskArgs,
   QueryTaskArgs,
+  QueryTasksArgs,
 } from '../generated/types';
 import models from '../models';
 
 export const resolver = {
   Query: {
-    async tasks() {
-      const tasks = await models.Task.all();
+    async tasks(_: unknown, { filters }: QueryTasksArgs) {
+      const tasks = await models.Task.all(filters ?? {});
+      const projects = await models.Project.all();
 
-      return tasks;
+      return tasks.map((task) => ({
+        ...task,
+        project: projects.find((project) => project.id === task.projectId),
+      }));
     },
 
     async task(_: unknown, { id }: QueryTaskArgs) {

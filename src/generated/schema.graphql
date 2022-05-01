@@ -21,7 +21,7 @@ type Query {
   sprint(id: String!): Sprint
   sprints(filters: SprintInput): [Sprint]
   task(id: String!): Task
-  tasks: [Task]
+  tasks(filters: TasksInput): [Task]
 }
 
 type Sprint {
@@ -33,6 +33,7 @@ type Sprint {
   name: String!
   project: Project
   status: String!
+  tasks: [Task!]
 }
 
 input SprintInput {
@@ -48,6 +49,7 @@ type Task {
   listId: String!
   name: String!
   priority: String
+  project: Project!
   projectId: String!
   reference: String!
   status: String!
@@ -62,6 +64,11 @@ input TaskInput {
   description: String
   name: String!
   projectId: String!
+}
+
+input TasksInput {
+  search: String
+  status: [String!]
 }
 
 input TimeInput {
