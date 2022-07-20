@@ -5,6 +5,7 @@ import fs from 'fs';
 import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import http from 'http';
 import https from 'https';
 import helmet from 'helmet';
 import getSchema from './schemas';
@@ -30,7 +31,7 @@ async function startApolloServer() {
     })
   );
 
-  const httpServer = https.createServer({ key, cert }, app);
+  const httpServer = isProduction ? http.createServer(app) : https.createServer({ key, cert }, app);
   const schema = await getSchema();
   const server = new ApolloServer({
     schema,
