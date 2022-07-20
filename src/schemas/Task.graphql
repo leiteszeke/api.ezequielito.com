@@ -44,6 +44,7 @@ input TaskInput {
 input TasksInput {
   status: [String!]
   search: String
+  projectId: String
 }
 
 type Query {

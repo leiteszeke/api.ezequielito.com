@@ -121,6 +121,7 @@ export type TaskInput = {
 };
 
 export type TasksInput = {
+  projectId?: InputMaybe<Scalars['String']>;
   search?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Array<Scalars['String']>>;
 };
