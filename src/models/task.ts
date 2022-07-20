@@ -18,10 +18,6 @@ const all = async (filters: QueryTasksArgs['filters']): Promise<Task[]> => {
     );
   }
 
-  if (filters?.projectId && filters.projectId !== '') {
-    tasks = tasks.filter((task) => task.project.id === filters.projectId);
-  }
-
   return tasks;
 };
 

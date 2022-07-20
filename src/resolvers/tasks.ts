@@ -12,10 +12,16 @@ export const resolver = {
       const tasks = await models.Task.all(filters ?? {});
       const projects = await models.Project.all();
 
-      return tasks.map((task) => ({
+      let array = tasks.map((task) => ({
         ...task,
         project: projects.find((project) => project.id === task.projectId),
       }));
+
+      if (filters?.projectId && filters.projectId !== '') {
+        array = array.filter((task) => task.project?.id === filters.projectId);
+      }
+
+      return array;
     },
 
     async task(_: unknown, { id }: QueryTaskArgs) {
