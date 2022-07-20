@@ -31,7 +31,10 @@ async function startApolloServer() {
     })
   );
 
-  const httpServer = isProduction ? http.createServer(app) : https.createServer({ key, cert }, app);
+  const httpServer = isProduction
+    ? http.createServer(app)
+    : http.createServer(app);
+  //: https.createServer({ key, cert }, app);
   const schema = await getSchema();
   const server = new ApolloServer({
     schema,

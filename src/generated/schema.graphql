@@ -43,6 +43,7 @@ input SprintInput {
 
 type Task {
   _id: String!
+  code: String!
   createdAt: Int!
   desc: String
   id: String!

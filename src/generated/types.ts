@@ -97,6 +97,7 @@ export type SprintInput = {
 export type Task = {
   __typename?: 'Task';
   _id: Scalars['String'];
+  code: Scalars['String'];
   createdAt: Scalars['Int'];
   desc?: Maybe<Scalars['String']>;
   id: Scalars['String'];

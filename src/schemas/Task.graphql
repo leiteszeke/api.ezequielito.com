@@ -19,6 +19,7 @@ type Task {
   priority: String
   storypoints: Int
   type: String!
+  code: String!
 
   updatedAt: Int!
   createdAt: Int!

@@ -14,6 +14,7 @@ export const resolver = {
 
       let array = tasks.map((task) => ({
         ...task,
+        code: task.reference,
         project: projects.find((project) => project.id === task.projectId),
       }));
 
@@ -52,6 +53,7 @@ export const resolver = {
 
       return {
         ...task,
+        code: task.reference,
         times,
         totalTime: times.reduce((acc, cur) => acc + cur.duration, 0),
       };
@@ -70,6 +72,7 @@ export const resolver = {
 
       return {
         ...task,
+        code: task.reference,
         times,
         totalTime: times.reduce((acc, cur) => acc + cur.duration, 0),
       };
