@@ -1,9 +1,19 @@
 {
   "compilerOptions": {
-    "sourceMap": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
     "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true,
-    "lib": ["esnext"],
-    "esModuleInterop": true
-  }
+    "jsx": "react",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2021",
+  },
+  "exclude": ["node_modules", "prisma"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "./typings.d.ts"]
 }
