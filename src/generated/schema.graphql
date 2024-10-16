@@ -1,6 +1,18 @@
+scalar BigInt
+
+scalar DateTime
+
+input LoginUserInput {
+  email: String!
+  password: String!
+  service: String
+  version: String
+}
+
 type Mutation {
   addTime(input: TimeInput!): Task
   createTask(input: TaskInput!): Task
+  loginUser(input: LoginUserInput!): User
 }
 
 type Project {
@@ -86,4 +98,14 @@ type TimeTracking {
   taskId: String!
   timeId: String!
   userId: String!
+}
+
+type User {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  email: String!
+  id: Int
+  lastname: String!
+  name: String!
+  updatedAt: DateTime!
 }

@@ -1,5 +1,5 @@
 import { User } from '@prisma/client';
-import { Project, Sprint } from './generated/types';
+import { Project, Sprint } from '../generated/types';
 
 export type Generic<T = unknown> = Record<string, T>;
 
@@ -17,7 +17,6 @@ export interface Context {
     variables: Generic;
   };
 }
-
 
 // export type IOServer = Socket<ClientToServerEvents, ServerToClientEvents>;
 
@@ -42,7 +41,6 @@ export enum ResponseMessage {
   NotAuthorized = 'not_authorized',
 }
 
-
 export type BackendSprint = Omit<Sprint, 'dateFrom' | 'dateTo'> & {
   completed: boolean;
   sprintstart: Sprint['dateFrom'];
@@ -59,4 +57,16 @@ export enum SprintStatus {
 
 export type BackendProject = Omit<Project, 'sprints'> & {
   lists: BackendSprint[];
+};
+export type AppRequest = Request & {
+  user: User;
+  requestContext: {
+    service: string;
+    appVersion: string;
+  };
+  service: string;
+  appVersion: string;
+  body: Request['body'] & {
+    user: User;
+  };
 };

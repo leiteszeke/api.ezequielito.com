@@ -1,6 +1,6 @@
 import { Project } from '../generated/types';
 import { HoldedApi } from '../helpers/request';
-import { BackendProject } from '../types';
+import { BackendProject } from '../types/Api';
 import { mapSprint } from './sprint';
 
 export const mapProject = (input: BackendProject) => {

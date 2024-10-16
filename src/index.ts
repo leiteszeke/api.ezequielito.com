@@ -19,7 +19,7 @@ import cors from 'cors';
 import fileUpload from 'express-fileupload';
 import authMiddleware from './middlewares/auth';
 import initCron from './config/cron';
-import { Context } from './types';
+import { Context } from './types/Api';
 
 const key = fs.readFileSync('./cert/CA/localhost/localhost.decrypted.key');
 const cert = fs.readFileSync('./cert/CA/localhost/localhost.crt');
@@ -54,9 +54,10 @@ async function startApolloServer() {
 
   const httpServer = Config.isProduction
     ? http.createServer(app)
-    : https.createServer({ key, cert }, app);
+    : http.createServer(app);
+  // : https.createServer({ key, cert }, app);
 
-  await initPrisma()
+  await initPrisma();
   initCron();
 
   const schema = await getSchema();
@@ -131,9 +132,8 @@ async function startApolloServer() {
           };
         },
       },
-    ]
+    ],
   });
-
 
   await server.start();
   server.applyMiddleware({ app });
@@ -155,7 +155,7 @@ async function startApolloServer() {
   );
 
   logger.info(
-    `🚀 Server ready at https://localhost:${Config.port}${server.graphqlPath}`
+    `🚀 Server ready at http://localhost:${Config.port}${server.graphqlPath}`
   );
 }
 

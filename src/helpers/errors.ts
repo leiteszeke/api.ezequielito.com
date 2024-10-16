@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-server-express';
+import { AxiosError } from 'axios';
 
 export class NotFoundError extends ApolloError {
   constructor(message: string) {
@@ -75,3 +76,38 @@ export class WithoutPermissionsError extends ApolloError {
     Object.defineProperty(this, 'name', { value: 'NotPermissionError' });
   }
 }
+
+export const errorMessage = (
+  error: unknown,
+  options?: { isAfip?: boolean }
+) => ({
+  errorMessage: (error as Error).message,
+});
+
+export const errorData = (error: unknown) => ({
+  errorData: (
+    error as AxiosError<{ code: string; message: string } | undefined>
+  )?.response?.data,
+});
+
+export const errorRequest = (e: unknown) => {
+  const err = e as AxiosError;
+
+  return {
+    errorRequest: {
+      method: err.config?.method,
+      baseURL: err.config?.baseURL,
+      url: err.config?.url,
+      data: err.config?.data ? JSON.parse(err.config.data) : null,
+      code: err.code,
+      status: err.response?.status,
+      statusText: err.response?.statusText,
+    },
+  };
+};
+
+export const mergedErrors = (e: unknown, options?: { isAfip?: boolean }) => ({
+  ...errorMessage(e, options),
+  ...errorData(e),
+  ...errorRequest(e),
+});

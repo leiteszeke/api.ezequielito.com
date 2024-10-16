@@ -1,0 +1,23 @@
+scalar DateTime
+
+type User {
+  id: Int
+  name: String!
+  lastname: String!
+  email: String!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+  service: String
+  version: String
+}
+
+type Mutation {
+  loginUser(input: LoginUserInput!): User
+}

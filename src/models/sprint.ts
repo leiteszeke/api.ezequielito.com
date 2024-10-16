@@ -1,7 +1,7 @@
 import { format, isAfter, isBefore, parse } from 'date-fns';
 import { Project, QuerySprintsArgs, Sprint, Task } from '../generated/types';
 import { HoldedApi } from '../helpers/request';
-import { BackendProject, BackendSprint, SprintStatus } from '../types';
+import { BackendProject, BackendSprint, SprintStatus } from '../types/Api';
 
 export const mapSprint = (
   input: BackendSprint,
@@ -84,9 +84,8 @@ const all = async (filters: QuerySprintsArgs['filters']) => {
 };
 
 const find = async (id: Sprint['id']) => {
-  const { data: response } = await HoldedApi.get<BackendProject[]>(
-    `projects/v1/projects`
-  );
+  const { data: response } =
+    await HoldedApi.get<BackendProject[]>(`projects/v1/projects`);
 
   const project = response.find((project) =>
     project.lists.some((sprint) => sprint.id === id)

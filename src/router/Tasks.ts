@@ -2,7 +2,7 @@ import { Router } from 'express';
 import logger from '../helpers/logger';
 import Tasks from '../tasks';
 import Config from '../config/env';
-import { ResponseCode, ResponseMessage } from '../types';
+import { ResponseCode, ResponseMessage } from '../types/Api';
 
 const TasksRouter = Router();
 

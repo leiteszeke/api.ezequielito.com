@@ -1,4 +1,4 @@
-import { Generic } from '../types';
+import { Generic } from '../types/Api';
 import SendFriendMessage from './SendFriendMessage';
 import SendSlackMessage from './SendSlackMessage';
 

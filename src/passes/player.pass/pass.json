@@ -1,0 +1,11 @@
+{
+  "foregroundColor": "rgb(255,255,255)",
+  "labelColor": "rgb(255,255,255)",
+  "backgroundColor": "rgb(255,255,255)",
+  "description": "Mis datos de Yu-Gi-Oh!",
+  "organizationName": "Konami",
+  "passTypeIdentifier": "pass.com.cossyinwallet",
+  "teamIdentifier": "FQU3ME9YTV",
+  "formatVersion": 1,
+  "eventTicket": {}
+}

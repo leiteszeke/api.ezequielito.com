@@ -45,8 +45,8 @@ class Email {
       this.replyTo = input.replyTo;
     }
 
-    if (Config.sendgridApiKey) {
-      sgMail.setApiKey(Config.sendgridApiKey);
+    if (Config.sendGridApiKey) {
+      sgMail.setApiKey(Config.sendGridApiKey);
     }
   }
 
