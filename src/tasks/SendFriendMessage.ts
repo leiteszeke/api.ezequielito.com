@@ -1,8 +1,10 @@
 import { shuffle } from 'lodash';
 import logger from '../helpers/logger';
-import Email from '../helpers/mails';
+import Mail from 'nodemailer/lib/mailer';
+import { BadRequestError } from '../helpers/errors';
+import models from '../models';
 
-const DEBUG = true;
+const DEBUG = false;
 
 type Friend = {
   id: number;
@@ -80,22 +82,41 @@ const SendFriendMessage = async () => {
     return logger.error('Error generating array');
   }
 
-  total.forEach((user) => {
-    const mail = new Email({
-      to: [
-        {
-          name: user.from.name,
-          email: DEBUG
-            ? `ezequiel+id${user.from.id}@leites.dev`
-            : user.from.email,
-        },
-      ],
-      body: getTemplate(user),
-      subject: `${user.from.name}... Tu amigo invisible será...`,
-    });
+  for (const user of total) {
+    const html = getTemplate(user);
+    const text = html.replace(/(<([^>]+)>)/gi, '');
 
-    // mail.send()
-  });
+    const input: Mail.Options = {
+      from: {
+        name: 'Tu Amigo Invisible - Daruma Cloud',
+        address: 'no.responder@daruma.cloud',
+      },
+      to: [DEBUG ? `ezequiel+id${user.from.id}@leites.dev` : user.from.email],
+      subject: `${user.from.name}... Tu amigo invisible será...`,
+      html,
+      text,
+    };
+
+    logger.info(`Sending email to ${user.from.name} <${user.from.email}>...`);
+
+    try {
+      const sent = await models.Mails.create(input);
+
+      if (!sent) {
+        throw new BadRequestError('error_sending_email');
+      }
+
+      logger.info(
+        `Email to ${user.from.name} <${user.from.email}> sent succesfully...`
+      );
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      logger.error(`Error sending email to ${user.from.name}`, {
+        message: e.message,
+        body: e.response,
+      });
+    }
+  }
 };
 
 export default SendFriendMessage;

@@ -34,7 +34,7 @@ class Email {
   constructor(input: EmailProps) {
     this.from = input.from || {
       name: '👨🏻‍💻 Ezequielito',
-      email: 'noreply@leites.dev',
+      email: 'yugiohargentina@gmail.com',
     };
     this.to = input.to;
     this.subject = input.subject;
