@@ -10,3 +10,5 @@ cossy
 !cossy/.gitkeep
 
 certs
+logs
+actual-db

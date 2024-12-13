@@ -5,7 +5,7 @@ import { PKPass } from 'passkit-generator';
 
 const PassWalletRouter = Router();
 
-const certDirectory = path.resolve(process.cwd(), 'cert/PassWallet');
+const certDirectory = path.resolve(process.cwd(), 'certs/PassWallet');
 const wwdr = fs.readFileSync(path.join(certDirectory, 'wwdr.pem'));
 const signerCert = fs.readFileSync(path.join(certDirectory, 'signerCert.pem'));
 const signerKey = fs.readFileSync(path.join(certDirectory, 'signerKey.pem'));
@@ -87,11 +87,6 @@ PassWalletRouter.post('/', async (req, res) => {
       textAlignment: 'PKTextAlignmentCenter',
     });
   }
-
-  // pass.backFields.push({
-  //   key: 'tournament1',
-  //   value: '1st Place YACS 25th Anniversary',
-  // });
 
   if (platform === 'ios') {
     res.header('Content-Type', 'application/vnd-apple.pkpass');

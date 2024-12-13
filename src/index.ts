@@ -20,9 +20,10 @@ import fileUpload from 'express-fileupload';
 import authMiddleware from './middlewares/auth';
 import initCron from './config/cron';
 import { Context } from './types/Api';
+import { initActual } from './config/actual';
 
-const key = fs.readFileSync('./cert/CA/localhost/localhost.decrypted.key');
-const cert = fs.readFileSync('./cert/CA/localhost/localhost.crt');
+const key = fs.readFileSync('./certs/CA/localhost/localhost.decrypted.key');
+const cert = fs.readFileSync('./certs/CA/localhost/localhost.crt');
 
 async function startApolloServer() {
   const app = express();
@@ -52,12 +53,12 @@ async function startApolloServer() {
 
   app.use('/graphql', authMiddleware());
 
-  const httpServer = Config.isProduction
+  const httpServer = Config.isLocal
     ? http.createServer(app)
-    : http.createServer(app);
-  // : https.createServer({ key, cert }, app);
+    : https.createServer({ key, cert }, app);
 
   await initPrisma();
+  await initActual();
   initCron();
 
   const schema = await getSchema();

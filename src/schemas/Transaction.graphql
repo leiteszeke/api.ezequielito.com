@@ -1,0 +1,32 @@
+type Transaction {
+  id: String
+  is_parent: Boolean!
+  is_child: Boolean!
+  parent_id: String
+  account: String
+  category: String
+  amount: Float!
+  payee: String
+  notes: String
+  date: String
+  imported_id: String
+  error: String
+  imported_payee: String
+  starting_balance_flag: Boolean!
+  transfer_id: String
+  sort_order: Float!
+  cleared: Boolean!
+  reconciled: Boolean!
+  tombstone: Boolean!
+  schedule: String
+  subtransactions: [Transaction!]
+}
+
+type Query {
+  transactions(
+    accountId: String
+    dateFrom: String
+    dateTo: String
+  ): [Transaction]
+  transaction(id: String!, accountId: String): Transaction
+}

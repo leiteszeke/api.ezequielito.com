@@ -1,0 +1,33 @@
+type Payee {
+  id: String!
+  name: String
+  transfer_act: String
+  rules: [PayeeRule]
+}
+
+type PayeeRule {
+  id: String!
+  stage: String
+  conditionsOp: String
+  conditions: [RuleCondition]
+  actions: [RuleAction]
+}
+
+type RuleCondition {
+  type: String
+  value: String
+  field: String
+  op: String
+}
+
+type RuleAction {
+  type: String
+  value: String
+  field: String
+  op: String
+}
+
+type Query {
+  payees: [Payee]
+  payee(id: String!): Payee
+}

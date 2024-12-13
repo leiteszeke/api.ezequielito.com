@@ -1,0 +1,22 @@
+type Category {
+  id: String!
+  name: String
+  is_income: Boolean
+  hidden: Boolean
+  group_id: Boolean
+}
+
+type CategoryGroup {
+  id: String!
+  name: String
+  is_income: Boolean
+  hidden: Boolean
+  categories: [Category]
+}
+
+type Query {
+  categories: [Category]
+  categoryGroups: [CategoryGroup]
+  category(id: String!): Category
+  categoryGroup(id: String!): CategoryGroup
+}

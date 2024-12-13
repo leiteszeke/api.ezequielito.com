@@ -1,4 +1,26 @@
-scalar BigInt
+type Account {
+  balance: Float
+  closed: Boolean
+  id: String!
+  name: String
+  offbudget: Boolean
+}
+
+type Category {
+  group_id: Boolean
+  hidden: Boolean
+  id: String!
+  is_income: Boolean
+  name: String
+}
+
+type CategoryGroup {
+  categories: [Category]
+  hidden: Boolean
+  id: String!
+  is_income: Boolean
+  name: String
+}
 
 scalar DateTime
 
@@ -15,6 +37,21 @@ type Mutation {
   loginUser(input: LoginUserInput!): User
 }
 
+type Payee {
+  id: String!
+  name: String
+  rules: [PayeeRule]
+  transfer_act: String
+}
+
+type PayeeRule {
+  actions: [RuleAction]
+  conditions: [RuleCondition]
+  conditionsOp: String
+  id: String!
+  stage: String
+}
+
 type Project {
   _id: String!
   completedTasks: Int!
@@ -28,12 +65,36 @@ type Project {
 }
 
 type Query {
+  account(id: String!): Account
+  accounts: [Account]
+  categories: [Category]
+  category(id: String!): Category
+  categoryGroup(id: String!): CategoryGroup
+  categoryGroups: [CategoryGroup]
+  payee(id: String!): Payee
+  payees: [Payee]
   project(id: String!): Project
   projects: [Project]
   sprint(id: String!): Sprint
   sprints(filters: SprintInput): [Sprint]
   task(id: String!): Task
   tasks(filters: TasksInput): [Task]
+  transaction(accountId: String, id: String!): Transaction
+  transactions(accountId: String, dateFrom: String, dateTo: String): [Transaction]
+}
+
+type RuleAction {
+  field: String
+  op: String
+  type: String
+  value: String
+}
+
+type RuleCondition {
+  field: String
+  op: String
+  type: String
+  value: String
 }
 
 type Sprint {
@@ -98,6 +159,30 @@ type TimeTracking {
   taskId: String!
   timeId: String!
   userId: String!
+}
+
+type Transaction {
+  account: String
+  amount: Float!
+  category: String
+  cleared: Boolean!
+  date: String
+  error: String
+  id: String
+  imported_id: String
+  imported_payee: String
+  is_child: Boolean!
+  is_parent: Boolean!
+  notes: String
+  parent_id: String
+  payee: String
+  reconciled: Boolean!
+  schedule: String
+  sort_order: Float!
+  starting_balance_flag: Boolean!
+  subtransactions: [Transaction!]
+  tombstone: Boolean!
+  transfer_id: String
 }
 
 type User {

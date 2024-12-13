@@ -5,6 +5,8 @@ const initCron = () => {
   if (Config.isProduction) {
     logger.debug('⏱️ Initializing Crons');
   }
+
+  return true;
 };
 
 export default initCron;

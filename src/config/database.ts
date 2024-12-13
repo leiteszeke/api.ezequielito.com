@@ -15,12 +15,6 @@ export const initPrisma = async () => {
   try {
     logger.info('🛢 MySQL connecting...');
 
-    /*
-    prisma.$use(async (params, next) => {
-      return next(params);
-    });
-    */
-
     await prisma
       .$connect()
       .then(() => logger.info('🛢 MySQL connected'))

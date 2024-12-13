@@ -1,0 +1,12 @@
+type Account {
+  id: String!
+  name: String
+  offbudget: Boolean
+  closed: Boolean
+  balance: Float
+}
+
+type Query {
+  accounts: [Account]
+  account(id: String!): Account
+}

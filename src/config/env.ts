@@ -13,6 +13,7 @@ const Config = {
   socketEnabled: parseBoolean(process.env.SOCKET_ENABLED),
 
   logtailToken: parseString(process.env.LOGTAIL_TOKEN),
+  lokiEndpoint: parseString(process.env.LOKI_ENDPOINT),
 
   adminUrl: parseEmptyString(process.env.ADMIN_URL),
   pricesUrl: parseEmptyString(process.env.PRICES_URL),
@@ -38,6 +39,11 @@ const Config = {
   redisHost: parseString(process.env.REDIS_HOST),
   redisPort: parseString(process.env.REDIS_PORT),
   redisPass: parseString(process.env.REDIS_PASS),
+
+  actualEndpoint: parseString(process.env.ACTUAL_ENDPOINT),
+  actualPassword: parseString(process.env.ACTUAL_PASSWORD),
+  actualBudgetId: parseString(process.env.ACTUAL_BUDGET_ID),
+  actualBudgetPassword: parseString(process.env.ACTUAL_BUDGET_PASS),
 };
 
 export default Config;

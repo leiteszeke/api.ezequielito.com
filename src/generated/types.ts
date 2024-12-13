@@ -12,8 +12,34 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  BigInt: { input: any; output: any; }
   DateTime: { input: any; output: any; }
+};
+
+export type Account = {
+  __typename?: 'Account';
+  balance?: Maybe<Scalars['Float']['output']>;
+  closed?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  offbudget?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type Category = {
+  __typename?: 'Category';
+  group_id?: Maybe<Scalars['Boolean']['output']>;
+  hidden?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['String']['output'];
+  is_income?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type CategoryGroup = {
+  __typename?: 'CategoryGroup';
+  categories?: Maybe<Array<Maybe<Category>>>;
+  hidden?: Maybe<Scalars['Boolean']['output']>;
+  id: Scalars['String']['output'];
+  is_income?: Maybe<Scalars['Boolean']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type LoginUserInput = {
@@ -45,6 +71,23 @@ export type MutationLoginUserArgs = {
   input: LoginUserInput;
 };
 
+export type Payee = {
+  __typename?: 'Payee';
+  id: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  rules?: Maybe<Array<Maybe<PayeeRule>>>;
+  transfer_act?: Maybe<Scalars['String']['output']>;
+};
+
+export type PayeeRule = {
+  __typename?: 'PayeeRule';
+  actions?: Maybe<Array<Maybe<RuleAction>>>;
+  conditions?: Maybe<Array<Maybe<RuleCondition>>>;
+  conditionsOp?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  stage?: Maybe<Scalars['String']['output']>;
+};
+
 export type Project = {
   __typename?: 'Project';
   _id: Scalars['String']['output'];
@@ -60,12 +103,42 @@ export type Project = {
 
 export type Query = {
   __typename?: 'Query';
+  account?: Maybe<Account>;
+  accounts?: Maybe<Array<Maybe<Account>>>;
+  categories?: Maybe<Array<Maybe<Category>>>;
+  category?: Maybe<Category>;
+  categoryGroup?: Maybe<CategoryGroup>;
+  categoryGroups?: Maybe<Array<Maybe<CategoryGroup>>>;
+  payee?: Maybe<Payee>;
+  payees?: Maybe<Array<Maybe<Payee>>>;
   project?: Maybe<Project>;
   projects?: Maybe<Array<Maybe<Project>>>;
   sprint?: Maybe<Sprint>;
   sprints?: Maybe<Array<Maybe<Sprint>>>;
   task?: Maybe<Task>;
   tasks?: Maybe<Array<Maybe<Task>>>;
+  transaction?: Maybe<Transaction>;
+  transactions?: Maybe<Array<Maybe<Transaction>>>;
+};
+
+
+export type QueryAccountArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryCategoryArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryCategoryGroupArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryPayeeArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -91,6 +164,35 @@ export type QueryTaskArgs = {
 
 export type QueryTasksArgs = {
   filters?: InputMaybe<TasksInput>;
+};
+
+
+export type QueryTransactionArgs = {
+  accountId?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryTransactionsArgs = {
+  accountId?: InputMaybe<Scalars['String']['input']>;
+  dateFrom?: InputMaybe<Scalars['String']['input']>;
+  dateTo?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type RuleAction = {
+  __typename?: 'RuleAction';
+  field?: Maybe<Scalars['String']['output']>;
+  op?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+export type RuleCondition = {
+  __typename?: 'RuleCondition';
+  field?: Maybe<Scalars['String']['output']>;
+  op?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
 };
 
 export type Sprint = {
@@ -158,6 +260,31 @@ export type TimeTracking = {
   taskId: Scalars['String']['output'];
   timeId: Scalars['String']['output'];
   userId: Scalars['String']['output'];
+};
+
+export type Transaction = {
+  __typename?: 'Transaction';
+  account?: Maybe<Scalars['String']['output']>;
+  amount: Scalars['Float']['output'];
+  category?: Maybe<Scalars['String']['output']>;
+  cleared: Scalars['Boolean']['output'];
+  date?: Maybe<Scalars['String']['output']>;
+  error?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  imported_id?: Maybe<Scalars['String']['output']>;
+  imported_payee?: Maybe<Scalars['String']['output']>;
+  is_child: Scalars['Boolean']['output'];
+  is_parent: Scalars['Boolean']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
+  parent_id?: Maybe<Scalars['String']['output']>;
+  payee?: Maybe<Scalars['String']['output']>;
+  reconciled: Scalars['Boolean']['output'];
+  schedule?: Maybe<Scalars['String']['output']>;
+  sort_order: Scalars['Float']['output'];
+  starting_balance_flag: Scalars['Boolean']['output'];
+  subtransactions?: Maybe<Array<Transaction>>;
+  tombstone: Scalars['Boolean']['output'];
+  transfer_id?: Maybe<Scalars['String']['output']>;
 };
 
 export type User = {
