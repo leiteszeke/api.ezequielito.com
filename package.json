@@ -82,6 +82,8 @@
   "scripts": {
     "build": "yarn generate && yarn tsc",
     "check-types": "tsc -p tsconfig.json --noemit",
+    "db:migrate": "yarn prisma migrate deploy",
+    "db:migration": "yarn prisma migrate dev --name",
     "deploy:db": "ts-node ./scripts/deploy-db",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
     "dev:backup": "PORT=4001 ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
@@ -93,7 +95,7 @@
     "postinstall": "patch-package",
     "prisma:generate": "yarn prisma generate",
     "start": "node dist/index.js",
-    "start:server": "pm2 start npm --name \"EzequielitoApi\" -- start",
+    "start:server": "pm2 start npm --name \"EzequielitoApi\" -- start --time",
     "task": "ts-node ./src/tasks/command.ts",
     "test": "jest --verbose --detectOpenHandles",
     "test:coverage": "jest --verbose --detectOpenHandles --collectCoverage",

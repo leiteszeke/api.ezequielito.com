@@ -1,11 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
-import fs from 'fs';
 import 'reflect-metadata';
 import express from 'express';
 import http from 'http';
-import https from 'https';
 import helmet from 'helmet';
 import getSchema from './schemas';
 import logger from './helpers/logger';
@@ -22,8 +20,7 @@ import initCron from './config/cron';
 import { Context } from './types/Api';
 import { initActual } from './config/actual';
 
-const key = fs.readFileSync('./certs/CA/localhost/localhost.decrypted.key');
-const cert = fs.readFileSync('./certs/CA/localhost/localhost.crt');
+const VOID_ROUTES = ['/favicon.icon', '/favicon.ico'];
 
 async function startApolloServer() {
   const app = express();
@@ -53,13 +50,9 @@ async function startApolloServer() {
 
   app.use('/graphql', authMiddleware());
 
-  const httpServer = Config.isLocal
-    ? http.createServer(app)
-    : https.createServer({ key, cert }, app);
+  const httpServer = http.createServer(app);
 
-  await initPrisma();
-  await initActual();
-  initCron();
+  await Promise.all([initPrisma(), initActual(), initCron()]);
 
   const schema = await getSchema();
 
@@ -140,7 +133,11 @@ async function startApolloServer() {
   server.applyMiddleware({ app });
 
   app.get('*', (req, res) => {
-    logger.warn(`Route ${req.path} not found`, {
+    if (VOID_ROUTES.includes(req.path)) {
+      return res.json({});
+    }
+
+    logger.loki.warn(`Route ${req.path} not found`, {
       path: req.path,
       params: req.params,
       body: req.body,
@@ -148,7 +145,7 @@ async function startApolloServer() {
       headers: req.headers,
     });
 
-    res.redirect('https://leites.dev');
+    res.redirect('https://daruma.cloud');
   });
 
   await new Promise<void>((resolve) =>
@@ -160,4 +157,22 @@ async function startApolloServer() {
   );
 }
 
-startApolloServer();
+const init = async () => {
+  startApolloServer();
+
+  process.on('unhandledRejection', (reason: Error) => {
+    logger.error('Unhandled Rejection', {
+      reason: reason.message,
+      stack: reason.stack,
+    });
+  });
+
+  process.on('uncaughtException', (error: Error) => {
+    logger.error('Uncaught Exception', {
+      reason: error.message,
+      stack: error.stack,
+    });
+  });
+};
+
+init();
