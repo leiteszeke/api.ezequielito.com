@@ -29,8 +29,9 @@ const Config = {
   isQA: parseString(process.env.NODE_ENV) === 'qa',
   isProduction: parseString(process.env.NODE_ENV) === 'production',
 
-  sendGridApiKey: parseString(process.env.SENDGRID_API_KEY),
   sendMails: parseBoolean(process.env.SEND_MAILS),
+  gmailAccount: parseString(process.env.GMAIL_ACCOUNT),
+  gmailPassword: parseString(process.env.GMAIL_PASSWORD),
 
   holdedApiUrl: parseNumber(process.env.HOLDED_API_URL),
   holdedApiKey: parseString(process.env.HOLDED_API_KEY),
