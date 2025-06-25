@@ -122,10 +122,10 @@ async function startApolloServer() {
               if (context.refreshedToken) {
                 response.http?.headers.set(
                   'Access-Control-Expose-Headers',
-                  'X-Daruma-New-Token'
+                  'X-Ezequielito-New-Token'
                 );
                 response.http?.headers.set(
-                  'X-Daruma-New-Token',
+                  'X-Ezequielito-New-Token',
                   context.refreshedToken
                 );
               }

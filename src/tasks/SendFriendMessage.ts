@@ -88,8 +88,8 @@ const SendFriendMessage = async () => {
 
     const input: Mail.Options = {
       from: {
-        name: 'Tu Amigo Invisible - Daruma Cloud',
-        address: 'no.responder@daruma.cloud',
+        name: 'Tu Amigo Invisible - Ezequielito',
+        address: 'no.responder@ezequiel.dev',
       },
       to: [DEBUG ? `ezequiel+id${user.from.id}@leites.dev` : user.from.email],
       subject: `${user.from.name}... Tu amigo invisible será...`,

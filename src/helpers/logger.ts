@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import path from 'path';
 import { parseQuery } from '../middlewares/graphQlParser';
 import { format } from 'date-fns';
+import { isEmptyOrNull } from './strings';
 
 const rootFolder = process.cwd();
 
@@ -79,6 +80,10 @@ const config = {
   timestamp: () => `,"time":"${format(Date.now(), 'yyyy-MM-dd HH:mm:ss')}"`,
 };
 
+const lokiTarget = !isEmptyOrNull(Config.lokiEndpoint)
+  ? lokiTransport
+  : ({} as TransportTargetOptions);
+
 const pinoLogger = Config.isTest
   ? { info: () => {}, debug: () => {}, warn: () => {}, error: () => {} }
   : Config.isLocal || !Config.logtailToken || Config.isLoggingDisabled
@@ -86,7 +91,7 @@ const pinoLogger = Config.isTest
         config,
         pino.transport({
           targets: [
-            lokiTransport,
+            lokiTarget,
             {
               level: 'trace',
               target: 'pino/file',
@@ -110,9 +115,14 @@ const pinoLogger = Config.isTest
           targets: [
             {
               target: '@logtail/pino',
-              options: { sourceToken: Config.logtailToken },
+              options: {
+                sourceToken: Config.logtailToken,
+                options: {
+                  endpoint: `https://${Config.logtailHost}`,
+                },
+              },
             },
-            lokiTransport,
+            lokiTarget,
           ],
         })
       );
@@ -124,7 +134,7 @@ const lokiLogger = Config.isTest
         config,
         pino.transport({
           targets: [
-            lokiTransport,
+            lokiTarget,
             {
               level: 'trace',
               target: 'pino/file',
@@ -145,7 +155,7 @@ const lokiLogger = Config.isTest
     : pino(
         config,
         pino.transport({
-          targets: [lokiTransport],
+          targets: [lokiTarget],
         })
       );
 

@@ -77,10 +77,7 @@ export class WithoutPermissionsError extends ApolloError {
   }
 }
 
-export const errorMessage = (
-  error: unknown,
-  options?: { isAfip?: boolean }
-) => ({
+export const errorMessage = (error: unknown) => ({
   errorMessage: (error as Error).message,
 });
 
@@ -106,8 +103,8 @@ export const errorRequest = (e: unknown) => {
   };
 };
 
-export const mergedErrors = (e: unknown, options?: { isAfip?: boolean }) => ({
-  ...errorMessage(e, options),
+export const mergedErrors = (e: unknown) => ({
+  ...errorMessage(e),
   ...errorData(e),
   ...errorRequest(e),
 });

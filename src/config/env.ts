@@ -12,7 +12,9 @@ const Config = {
 
   socketEnabled: parseBoolean(process.env.SOCKET_ENABLED),
 
+  logtailHost: parseString(process.env.LOGTAIL_HOST),
   logtailToken: parseString(process.env.LOGTAIL_TOKEN),
+
   lokiEndpoint: parseString(process.env.LOKI_ENDPOINT),
 
   adminUrl: parseEmptyString(process.env.ADMIN_URL),
@@ -44,6 +46,9 @@ const Config = {
   actualPassword: parseString(process.env.ACTUAL_PASSWORD),
   actualBudgetId: parseString(process.env.ACTUAL_BUDGET_ID),
   actualBudgetPassword: parseString(process.env.ACTUAL_BUDGET_PASS),
+
+  smartThingsApiUrl: parseString(process.env.SMART_THINGS_URL),
+  smartThingsApiKey: parseString(process.env.SMART_THINGS_TOKEN),
 };
 
 export default Config;
